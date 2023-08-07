@@ -21,7 +21,7 @@ const cheeseSchema = new mongoose.Schema({
     countryOfOrigin: String,
     image: String
 })
-const Cheese = mongoose.model("Cheese", cheeseSchema)
+const Cheeses = mongoose.model("Cheese", cheeseSchema)
 
 // MIDDLEWARE
 app.use(cors())
@@ -32,7 +32,7 @@ app.use(express.json())
 // INDEX ROUTE - GET
 app.get("/cheese", async (req, res) => {
     try {
-        const cheese = await Cheese.find({});
+        const cheese = await Cheeses.find({});
         res.json(cheese);
     } catch (error) {
         res.status(400).json({error});
@@ -40,9 +40,9 @@ app.get("/cheese", async (req, res) => {
 });
 
 // CREATE ROUTE - POST
-app.post("/cheese", async (req, res) => {
+app.post("/cheeses", async (req, res) => {
     try {
-        const cheese = await Cheese.create(req.body)
+        const cheese = await Cheeses.create(req.body)
         res.json(cheese)
     } 
     catch(error){
@@ -51,9 +51,9 @@ app.post("/cheese", async (req, res) => {
 })
 
 // SHOW ROUTE - GET
-app.get("/cheese/:id", async (req, res) => {
+app.get("/cheeses/:id", async (req, res) => {
     try {
-        const cheese = await Cheese.findById(req.params.id);
+        const cheese = await Cheeses.findById(req.params.id);
         res.json(cheese);
     } catch (error) {
         res.status(400).json({error});
@@ -61,9 +61,9 @@ app.get("/cheese/:id", async (req, res) => {
 })
 
 // UPDATE ROUTE - PUT
-app.put("/cheese/:id", async (req, res) => {
+app.put("/cheeses/:id", async (req, res) => {
     try {
-        const cheese = await Cheese.findByIdAndUpdate(req.params.id, req.body, {
+        const cheese = await Cheeses.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
         });
         res.json(cheese);
@@ -73,9 +73,9 @@ app.put("/cheese/:id", async (req, res) => {
 });
 
 // DELETE ROUTE
-app.delete("/cheese/:id", async (req, res) => {
+app.delete("/cheeses/:id", async (req, res) => {
     try {
-        const cheese = await Cheese.findByIdAndDelete(req.params.id)
+        const cheese = await Cheeses.findByIdAndDelete(req.params.id)
         res.status(204).json(cheese)
     } catch (error) {
         res.status(400).json({error});
